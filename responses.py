@@ -30,6 +30,24 @@ class Response:
     def check(self, type_message, telegram_user_id_message,
               text_message=None, callback_data_message=None, message=None):
 
+        keyboard = types.InlineKeyboardMarkup()
+
+        if self.db.check_registration_user(telegram_user_id=telegram_user_id_message) is False:
+            if callback_data_message == "registration":
+                pass
+            else:
+
+                keyboard.add(
+                    types.InlineKeyboardButton(
+                        text='Зарегистрироваться',
+                        callback_data='registration'))
+
+                self.bot.send_message(
+                    chat_id=telegram_user_id_message,
+                    text=self.answers["c_start_unregistered"],
+                    reply_markup=keyboard)
+                return 0
+
         #   message
         if type_message == 0:
             keyboard = types.InlineKeyboardMarkup()
