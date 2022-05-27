@@ -103,6 +103,10 @@ class Response:
             keyboard = types.InlineKeyboardMarkup()
             if callback_data_message == "registration":
                 self.db.registration_user(telegram_id=telegram_user_id_message)
+                keyboard.add(
+                    types.InlineKeyboardButton(
+                        text='Меню',
+                        callback_data='menu'))
                 self.bot.send_message(
                     chat_id=telegram_user_id_message,
                     text=self.answers["c_registration_complete"],
